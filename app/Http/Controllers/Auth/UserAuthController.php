@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
 
 class UserAuthController extends Controller
 {
@@ -37,5 +38,25 @@ class UserAuthController extends Controller
         //to create token
         $token = auth()->user()->createToken('Api token')->accessToken;
         return response(['user'=>auth()->user(),'token'=>$token]);
+    }
+    public function logout(Request $request)
+    {
+
+        $token = $request->user()->token();
+        return response()->json([
+            'data'=>$token,
+        ]);
+        if(!empty($token))
+        {
+
+            DB::table('oauth_access_tokens')->where('id',$token->id)->delete();
+
+        }
+       return $response =
+        [
+            'status'=> true,
+            'message'=>__('Logged Out Successfully'),
+            'data'=>null,
+        ];
     }
 }

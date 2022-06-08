@@ -15,12 +15,22 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        if(auth('api')->check())
+        {
         //show all employee
         $employees = Employee::all();
         return response()->json([
             'status' => 'Successfull',
-            $employees
+            'data'=> $employees
         ]);
+
+        }
+        else
+        {
+           return response()->json([
+               'message'=>'unauthenticated',
+           ]);
+        }
 
     }
 
@@ -32,24 +42,34 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //store employees
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'name' => 'required|max:50',
-            'age' => 'required|max:50',
-            'job' => 'required|max:50',
-            'salary' => 'required|max:50'
-        ]);
+        if(auth('api')->check())
+        {
+            //store employees
+            $data = $request->all();
+            $validator = Validator::make($data, [
+                'name' => 'required|max:50',
+                'age' => 'required|max:50',
+                'job' => 'required|max:50',
+                'salary' => 'required|max:50'
+            ]);
 
-        if($validator->fails()){
-            return response(['error' => $validator->errors(),
-            'Validation Error']);
+            if($validator->fails()){
+                return response(['error' => $validator->errors(),
+                'Validation Error']);
+            }
+            $employee = Employee::create($data);
+            return response()->json([
+                'status' => 'Successfull',
+                $employee
+            ]);
         }
-        $employee = Employee::create($data);
-        return response()->json([
-            'status' => 'Successfull',
-            $employee
-        ]);
+        else
+        {
+            return response()->json([
+                'message'=>'unauthenticated',
+            ]);
+        }
+
 
     }
 
