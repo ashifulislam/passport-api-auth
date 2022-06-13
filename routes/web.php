@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function () 
+{
     return view('welcome');
 });
+
+Route::get('/starter',function()
+{
+    return view('admin.dashboard');
+});
+
+Route::group(['middleware' => ['auth']], function ()
+ {
+    Route::get('/customer', 'App\Http\Controllers\Customer\CustomerController@index')->name('customer');
+    Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index')->name('admin');
+    Route::get('/superadmin','App\Http\Controllers\Superadmin\SuperAdminController@index')->name('superAdmin');
+    Route::get('/admin/category','App\Http\Controllers\Admin\CategoryControler@addCategory')->name('admin.category');
+
+ });
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

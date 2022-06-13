@@ -53,7 +53,8 @@ class EmployeeController extends Controller
                 'salary' => 'required|max:50'
             ]);
 
-            if($validator->fails()){
+            if($validator->fails())
+            {
                 return response(['error' => $validator->errors(),
                 'Validation Error']);
             }

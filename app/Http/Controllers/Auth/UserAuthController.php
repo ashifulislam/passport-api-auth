@@ -43,9 +43,7 @@ class UserAuthController extends Controller
     {
 
         $token = $request->user()->token();
-        return response()->json([
-            'data'=>$token,
-        ]);
+      
         if(!empty($token))
         {
 
