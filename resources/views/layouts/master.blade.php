@@ -35,7 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-6">
-        
+
           </div>
           <!-- /.col-md-6 -->
           <div class="col-lg-6">
@@ -66,6 +66,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
+@include('sweetalert::alert')
+
 @include('layouts.script')
 </body>
 </html>

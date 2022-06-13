@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () 
+Route::get('/', function ()
 {
     return view('welcome');
 });
@@ -24,13 +25,16 @@ Route::get('/starter',function()
 });
 
 Route::group(['middleware' => ['auth']], function ()
- {
+{
     Route::get('/customer', 'App\Http\Controllers\Customer\CustomerController@index')->name('customer');
     Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index')->name('admin');
     Route::get('/superadmin','App\Http\Controllers\Superadmin\SuperAdminController@index')->name('superAdmin');
     Route::get('/admin/category','App\Http\Controllers\Admin\CategoryControler@addCategory')->name('admin.category');
 
- });
+});
+
+Route::post('admin/category/store','App\Http\Controllers\Admin\CategoryControler@store')->name('admin.category.store');
+
 
 
 

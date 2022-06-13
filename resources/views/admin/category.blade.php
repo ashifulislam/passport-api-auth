@@ -6,17 +6,25 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form>
+              <form method="post" action={{route('admin.category.store')}}>
+                @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Category Name</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter category name">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="category_name" placeholder="Enter category name">
+                    @error('category_name')
+                     <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Category Desc</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter category description">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="category_desc" placeholder="Enter category description">
+                    @error('category_desc')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                       @enderror
+                 </div>
                   </div>
-                
+
                 </div>
                 <!-- /.card-body -->
 
