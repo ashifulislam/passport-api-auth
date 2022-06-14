@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +29,11 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index')->name('admin');
     Route::get('/superadmin','App\Http\Controllers\Superadmin\SuperAdminController@index')->name('superAdmin');
     Route::get('/admin/category','App\Http\Controllers\Admin\CategoryControler@addCategory')->name('admin.category');
+    Route::post('admin/category/store','App\Http\Controllers\Admin\CategoryControler@store')->name('admin.category.store');
+    Route::resource('products','App\Http\Controllers\Admin\ProductController');
 
 });
 
-Route::post('admin/category/store','App\Http\Controllers\Admin\CategoryControler@store')->name('admin.category.store');
 
 
 

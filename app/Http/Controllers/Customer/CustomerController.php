@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Product;
 class CustomerController extends Controller
 {
     public function __construct()
@@ -23,6 +24,7 @@ class CustomerController extends Controller
         }
     public function index()
     {
-        return view('customer.index');
+        $products = Product::all();
+        return view('customer.index',compact('products',$products));
     }
 }

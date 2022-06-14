@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Product;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Product;
+use App\Models\Category;
+use Auth;
+
 
 class ProductController extends Controller
 {
@@ -14,7 +19,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all()->where('user_id',Auth::user()->id);
+        return view('admin.index',compact('products',$products));
     }
 
     /**
@@ -24,7 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $admin_id = Auth::user()->id;
+        $categories = Category::all()->where('user_id',$admin_id);
+        return view('admin.create_product',compact('categories',$categories));
     }
 
     /**
@@ -35,7 +43,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $this->validate($request,[
+            'product_name' => 'required',
+            'product_desc' => 'required',
+        ]);
+
+
+        $user_id = Auth::user()->id;
+        $products = new Product();
+        $products->product_name = $request->input('product_name');
+        $products->product_desc = $request->input('product_desc');
+        //adding image
+        if ($image = $request->file('image')) 
+        {
+            
+            $destinationPath = 'image/';
+            //getting extension here
+            $profileImage = date('YmdHis') . "." .$image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $products->product_image = "$profileImage";
+        }
+        $products->category_id = $request->input('category_id');
+        $products->user_id = $user_id;
+        if($products->save())
+        {
+            Alert::success('Success Title', 'Products added successfully');
+            return redirect()->back();
+        }
+        
+
+
     }
 
     /**
@@ -46,7 +85,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
     }
 
     /**
