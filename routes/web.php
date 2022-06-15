@@ -34,11 +34,9 @@ Route::group(['middleware' => ['auth']], function ()
 
 });
 Route::get('admin/product/search','App\Http\Controllers\Admin\ProductController@search')->name('admin.product.search');
-
-
-
-
-
+// Route::get('/admin/product/view', 'App\Http\Controllers\Admin\ProductController@index_update'); 
+// Route::get('/getProducts', 'App\Http\Controllers\Admin\ProductController@getProducts')->name('getProducts');
+Route::get('/getProducts', 'App\Http\Controllers\Customer\CustomerController@getProducts')->name('getProducts');
 
 Auth::routes();
 
