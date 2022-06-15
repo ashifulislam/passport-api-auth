@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function ()
     Route::resource('products','App\Http\Controllers\Admin\ProductController');
 
 });
-
+Route::get('admin/product/search','App\Http\Controllers\Admin\ProductController@search')->name('admin.product.search');
 
 
 

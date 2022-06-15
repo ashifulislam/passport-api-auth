@@ -120,4 +120,14 @@ class ProductController extends Controller
     {
         //
     }
+    public function search(Request $request)
+    {
+        $search_keyword = $request->search;
+        $products = Product::select("*")
+                  ->where('product_name','LIKE',''.$search_keyword.'%')
+                  ->where('user_id',Auth::user()->id)
+                  ->get();
+        return view('admin.index',compact('products',$products));
+    }
+                
 }
