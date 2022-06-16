@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <title>Datatables AJAX pagination with Search and Sort in Laravel 8</title>
+    <title>Search and Sort with pagination</title>
 
     <!-- Meta -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,9 +33,6 @@
                 <td>Product Image</td>
                 <td>Action</td>
             </tr>
-
-
-
         </thead>
     </table>
 
@@ -48,7 +45,8 @@
                 serverSide: true,
                 ajax: "{{ route('getProducts') }}",
                 columns: [{
-                        data: 'id'
+                        data: 'id',
+                       
                     },
                     {
                         data: 'product_name'
@@ -65,6 +63,7 @@
 
                     },
                     {
+                        
                         "render": function() {
                             return '<a href="#"<td>Delete</td></a>|<a href="#"><td>Edit</td></a>';
                         }

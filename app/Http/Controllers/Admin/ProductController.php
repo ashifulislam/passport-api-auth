@@ -118,7 +118,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        return 'This product is going to delete';
     }
     public function search(Request $request)
     {
